@@ -1,0 +1,33 @@
+concrete-message: Configuration Específica entorno Des! (fichero apps/gateway-product/gateway-product.yml)
+
+test_encriptacion_en_servidor: QN6IZRoY8xk4COVJjyMZZfSSnHU0IZ3ilpr/2MlDuuY=
+# test_encriptacion_en_servidor: ENC(QN6IZRoY8xk4COVJjyMZZfSSnHU0IZ3ilpr/2MlDuuY=)
+
+spring:
+  profiles:
+    active: ${SHORT_ENV}
+
+# Datasources
+  datasource:
+    datasource-initializer-enabled: false
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      auto-commit: true
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  # url: jdbc:sqlserver://svmos101036-sql.byl.local;databaseName=NAVWEB
+  # password: j1Df;¿PE*eN5UhItFA?MM('8=Xe!!\
+  # url: jdbc:sqlserver://svmos107021.byl.local;databaseName=NAVPRE
+    url: jdbc:sqlserver://svmos107021.byl.local;databaseName=NAVPRE;sslProtocol=TLSv1.2
+  # Producción
+  # url: jdbc:sqlserver://svmad201110.byl.local;databaseName=NAV_BYL_CENTRAL_PRO;sslProtocol=TLSv1.2
+  # password: '!J>05Pd9Y\o#h>R*^=\IL0|TI&mc$8'
+  # username: umonnav
+    username: uproductintegration
+    password: t$%4<oC-D!H·j{>HKKep·,;8NO·/av
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    poolName: HikariCP-Principal
