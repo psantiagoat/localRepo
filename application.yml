@@ -1,0 +1,65 @@
+app:
+  version: '@project.version@'
+
+# Para exponer los endpoints de actuator
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,prometheus,env
+      cors:
+        allowed-origins: "http://localhost"
+        allowed-methods: "GET,POST"
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Datos del server
+server:
+  port: 8080
+  servlet:
+    context-path: "/${spring.application.name}-api-v${app.version_url}" 
+  ssl:
+    enabled: false
+
+# Datos de spring
+spring:
+  banner:
+    location: classpath:/banner.txt
+  main:
+    banner-mode: console
+  # profiles:
+  #  active: des
+  output:
+    ansi:
+      enabled: DETECT
+# Seguridad
+  security:
+    enable-csrf: false
+    enabled: false
+    basic:
+      enabled: false
+
+
+# jasypt:
+#   encryptor:
+#     algorithm: PBEWithMD5AndDES
+#     keyObtentionIterations: 1000
+#     poolSize: 1
+#     providerName: SunJCE
+#     saltGeneratorClassname: org.jasypt.salt.RandomSaltGenerator
+#     iv-generator-classname: org.jasypt.iv.NoIvGenerator
+#     stringOutputType: base64
+#     password: BylArqzrx2022Abr
+
+global-message: Configuration General entorno Des! (fichero application.yml)
+arqrama-message: Mensaje general.

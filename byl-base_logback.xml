@@ -1,0 +1,97 @@
+<!-- https://github.com/internetitem/logback-elasticsearch-appender -->
+<!-- Auth en cabecera Authorization -->
+<configuration>
+
+   <property resource="application.yml" />
+
+  <springProperty scope="context" name="name" source="spring.application.name" defaultValue="name_default"/>
+  <springProperty scope="context" name="appversion" source="app.version" defaultValue="0.0.0"/>
+  <springProperty scope="context" name="profile" source="spring.profiles.active" defaultValue="local"/>
+
+  <appender name="ELASTIC" class="com.internetitem.logback.elasticsearch.ElasticsearchAppender">
+      <!--authentication class="com.internetitem.logback.elasticsearch.config.BasicAuthentication" /-->
+      <connectTimeout>30000</connectTimeout> <!-- optional (in ms, default 30000) -->
+      <errorLoggerName>es-error-logger</errorLoggerName> <!-- optional -->
+      <errorsToStderr>true</errorsToStderr> <!-- optional (default false) -->
+      <includeCallerData>false</includeCallerData> <!-- optional (default false) -->
+      <includeMdc>false</includeMdc> <!-- optional (default false) -->
+      <index>app-log-${SHORT_ENV}-%date{yyyy.MM.dd}</index>
+      <loggerName>es-logger</loggerName> <!-- optional -->
+      <logsToStderr>false</logsToStderr> <!-- optional (default false) -->
+      <maxMessageSize>-1</maxMessageSize> <!-- optional (default -1 -->
+      <maxQueueSize>104857600</maxQueueSize> <!-- optional (default 104857600) -->
+      <maxRetries>3</maxRetries> <!-- optional (default 3) -->
+      <rawJsonMessage>false</rawJsonMessage> <!-- optional (default false) -->
+      <readTimeout>30000</readTimeout> <!-- optional (in ms, default 30000) -->
+      <sleepTime>250</sleepTime> <!-- optional (in ms, default 250) -->
+      <type></type>
+      <url>http://10.80.54.4:9200/_bulk</url>
+      <properties>
+          <property>
+              <name>app</name>
+              <value>${name}</value>
+              <allowEmpty>false</allowEmpty>
+          </property>
+          <property>
+            <name>app-version</name>
+            <value>${appversion}</value>
+            <allowEmpty>false</allowEmpty>
+          </property>
+          <property>
+              <name>host</name>
+              <value>${HOSTNAME}</value>
+              <allowEmpty>false</allowEmpty>
+          </property>
+          <property>
+              <name>level</name>
+              <value>%level</value>
+          </property>
+          <property>
+              <name>thread</name>
+              <value>%thread</value>
+          </property>
+          <property>
+              <name>stacktrace</name>
+              <value>%ex</value>
+          </property>
+          <property>
+              <name>logger</name>
+              <value>%logger</value>
+          </property>
+      </properties>
+      <headers>
+          <header>
+              <name>Content-Type</name>
+              <value>application/json</value>
+          </header>
+          <header>
+              <name>Authorization</name>
+              <value>Basic bG9nc3Rhc2hfd3JpdGVyOnJhNjNOc1RHez12NlA9dmpDUyVUeA==</value>
+          </header>
+      </headers>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <layout class="ch.qos.logback.classic.PatternLayout">
+          <Pattern>
+              %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+          </Pattern>
+      </layout>
+    </appender>
+
+    <logger name="es-error-logger" level="DEBUG" additivity="false">
+      <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <logger name="es-logger" level="INFO" additivity="false">
+      <appender-ref ref="ELASTIC" />
+        <appender name="ES_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+          <encoder>
+              <pattern>%msg</pattern>
+          </encoder>
+      </appender>
+    </logger>
+
+	<include resource="logback_conf.xml" />  
+  
+</configuration>

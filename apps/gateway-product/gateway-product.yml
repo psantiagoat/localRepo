@@ -1,0 +1,26 @@
+concrete-message: Configuration Específica entorno Des! (fichero apps/gateway-product/gateway-product.yml)
+
+test_encriptacion_en_servidor: QN6IZRoY8xk4COVJjyMZZfSSnHU0IZ3ilpr/2MlDuuY=
+# test_encriptacion_en_servidor: ENC(QN6IZRoY8xk4COVJjyMZZfSSnHU0IZ3ilpr/2MlDuuY=)
+
+spring:
+  profiles:
+    active: ${SHORT_ENV}
+
+# Datasources
+  datasource:
+    datasource-initializer-enabled: false
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      auto-commit: true
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+    url: jdbc:sqlserver://svmos101036-sql.byl.local;databaseName=NAVWEB
+    username: uproductintegration
+    password: j1Df;¿PE*eN5UhItFA?MM('8=Xe!!\
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    poolName: HikariCP-Principal

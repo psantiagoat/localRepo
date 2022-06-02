@@ -1,0 +1,24 @@
+
+
+
+
+spring:
+  profiles:
+    active: ${SHORT_ENV}
+# Datasources
+  datasource:
+    datasource-initializer-enabled: false
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      auto-commit: true
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+    url: jdbc:sqlserver://svmos101036-sql.byl.local;databaseName=NAVWEB;sslProtocol=TLSv1.2
+    username: uomsdevro
+    password: 'q·Sz·JqY/o|Hu{";*07;WFf%?NEl"E'
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    poolName: HikariCP-Principal
